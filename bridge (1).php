@@ -2,19 +2,22 @@
 
 
 
+// #set your server name, in this case i user localhost instead
 $servername = "";
 
+// #enter your database information
+$dbname = "YOUR DATABASE NAME";
+$username = "YOUR DATABASE USERNAME";
+$password = "YOUR DATABASE PASSWORD";
 
-$dbname = "";
-$username = "inoprexc_bewok";
-// REPLACE with Database user password
-$password = "dzailfc17";
 
-
+// #you can change this api key as you wish, but make sure to enter the same api key in your python or etc
 $api_key_value = "9F7j3bA5TAmPt";
 
+// #setup variable to store input
 $api_key= $latitude = $longitude = $dhtA = $dhtB = $adxlA = $adxlB = $iduser = $status = "";
 
+// #create connection to table and column in mysql
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $api_key = test_input($_POST["api_key"]);
     if($api_key == $api_key_value) {
@@ -32,13 +35,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         if ($conn->connect_error) {
             die("Connection failed: " . $conn->connect_error);
         } 
-        
+//         #insert data into database use your variable, make sure you enter same variable name in your python /etc
         $sql = "INSERT INTO data (latitude, longitude, dhtA, dhtB, adxlA,adxlB,iduser,status)
         VALUES ('" . $latitude . "', '" . $longitude . "', '" . $dhtA . "', '" . $dhtB . "', '" . $adxlA . "', '" . $adxlB . "', '" . $iduser. "', '" . $status. "')";
-        
+//         #show message when connection succesfully created
         if ($conn->query($sql) === TRUE) {
             echo "New record created successfully";
         } 
+        //         #show message when connection failed to create
         else {
             echo "Error: " . $sql . "<br>" . $conn->error;
         }
